@@ -81,6 +81,22 @@ router.put('/:id', (req, res) => {
     res.redirect(`/dinos/${req.params.id}`);
 })
 
+// Delete Route
+router.delete('/:id', (req, res) => {
+    console.log('|~~~~~~~DELETE~~~~~~~~~|');
+    // Get the dino from my data store
+    let dinoIndex = req.params.id;
+    let dinos = fs.readFileSync('./dinos.json');
+    dinosJS = JSON.parse(dinos);
+
+    dinosJS.splice(dinoIndex, 1);
+
+    fs.writeFileSync('./dinos.json', JSON.stringify(dinosJS));
+
+    res.redirect('/dinos');
+
+});
+
 // Create — POST /dinos
 router.post('/', (req, res) => {
     console.log(req.body);
